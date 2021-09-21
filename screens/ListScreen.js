@@ -1,10 +1,31 @@
-import React from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import React, { useEffect, useState } from "react";
+import { StyleSheet, View, Text, ActivityIndicator } from "react-native";
+import { Colors } from "react-native/Libraries/NewAppScreen";
+import globalStyles from "../styles/global";
+import { useDispatch } from "react-redux";
+import CustomButton from "../components/CustomButtom";
+import Tasks from "../components/Tasks";
+import { getTasks } from '../stores/actions/taskActions';
 
-const ListScreen = () => {
+const ListScreen = ({ navigation, route }) => {
+
+    const [loading, setLoading] = useState(true)
+    const { id } = route.params
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(getTasks(() => setLoading(false)))
+    }, [dispatch])
+
+    if (loading) {
+        return <ActivityIndicator color={Colors.primary} size="large" style={globalStyles.loader} />
+    }
+
     return (
         <View style={styles.container}>
-            <Text>Tasks</Text>
+            <Tasks navigation={navigation} listId={id} />
+            <CustomButton text="Add new task" icon="add" iconColor="#fff" onPress={() => NavigationContainer.navigate('NewTask')} />
         </View>
     )
 }
