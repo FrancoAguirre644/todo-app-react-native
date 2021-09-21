@@ -2,7 +2,7 @@ import { Colors } from '../constants/index'
 
 export default {
     loader: {
-        marginTop: 20
+        marginTop: 20,
     },
     noData: {
         textAlign: 'center',
@@ -17,6 +17,15 @@ export default {
         padding: 20,
         marginBottom: 20,
         borderLeftWidth: 2,
-        borderLeftColor: Colors.primary
+        borderLeftColor: Colors.primary,
+    },
+    input: {
+        borderBottomWidth: 2,
+        borderBottomColor: Colors.quaternary,
+        borderStyle: 'solid',
+        fontSize: 20,
+        lineHeight: 28,
+        marginBottom: 38,
+        padding: 5,
     }
 }

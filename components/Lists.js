@@ -4,9 +4,13 @@ import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 import { useSelector } from "react-redux";
 import globalStyles from '../styles/global'
 
-const Lists = () => {
+const Lists = ({ navigation }) => {
 
     const { lists } = useSelector(state => state.list)
+
+    const itemClickHandler = (item) => {
+        navigation.navigate('List', { name: item.name, id: item.id })
+    }
 
     return (
         <View style={styles.container}>
@@ -16,9 +20,10 @@ const Lists = () => {
                     contentContainerStyle={globalStyles.listContainer}
 
                     data={lists}
-                    renderItem={({ item }) => <TouchableOpacity style={globalStyles.listItem}>
-                        <Text style={styles.itemText}>{item.name}</Text>
-                    </TouchableOpacity>}
+                    renderItem={({ item }) =>
+                        <TouchableOpacity style={globalStyles.listItem} onPress={() => itemClickHandler(item)}>
+                            <Text style={styles.itemText}>{item.name}</Text>
+                        </TouchableOpacity>}
                 /> : <Text style={globalStyles.noData}>No lists</Text>
             }
         </View>

@@ -13,6 +13,12 @@ const listReducer = (state = initialState, action) => {
                 lists: action.payload
             }
             break;
+        case SET_ACTIVE_LIST_ID:
+            return {
+                ...state,
+                activeListId: action.payload
+            }
+            break;
         default:
             return state
             break;
