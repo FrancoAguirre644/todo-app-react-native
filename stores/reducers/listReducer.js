@@ -14,6 +14,7 @@ const listReducer = (state = initialState, action) => {
             }
             break;
         default:
+            return state
             break;
     }
 }
