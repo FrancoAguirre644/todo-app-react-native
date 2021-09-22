@@ -4,26 +4,28 @@ import { Colors } from "../constants";
 import globalStyles from '../styles/global'
 import CustomButtom from '../components/CustomButtom'
 import { useDispatch, useSelector } from "react-redux";
-import { createList } from "../store/actions/listActions";
+import { createTask } from "../store/actions/taskActions";
 
-const AddListScreen = ({ navigation }) => {
+const AddTaskScreen = ({ navigation }) => {
 
     const [name, setName] = useState('')
     const dispatch = useDispatch()
-    const { lists } = useSelector(state => state.list)
+    const { tasks } = useSelector(state => state.task)
+    const { activeListId } = useSelector(state => state.list)
 
     const submitHandler = () => {
         if (name.trim() === '') return Alert.alert('Validation', 'Name is required.')
 
-        const alreadyExist = lists.find(l => l.name.toLowerCase() === name.trim().toLocaleLowerCase())
-        if (alreadyExist) return Alert.alert('Validation', 'List with this name already exist.')
-
-        dispatch(createList(
+        const alreadyExist = tasks.find(t => t.name.toLowerCase() === name.trim().toLocaleLowerCase() && t.listId === activeListId)
+        if (alreadyExist) return Alert.alert('Validation', 'Task with this name already exist in this list.')
+        
+        dispatch(createTask(
             name,
+            activeListId,
             () => {
-                ToastAndroid.show(`List ${name} created.`, ToastAndroid.LONG)
+                ToastAndroid.show(`Task ${name} created.`, ToastAndroid.LONG)
                 Keyboard.dismiss()
-                navigation.navigate('Home')
+                navigation.goBack()
             },
             () => { ToastAndroid.show(`Something went wrong, please try again.`, ToastAndroid.LONG) }
 
@@ -35,7 +37,7 @@ const AddListScreen = ({ navigation }) => {
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
             <View style={styles.container}>
                 <TextInput style={globalStyles.input} value={name}
-                    onChangeText={(val) => setName(val)} placeholder="List name"
+                    onChangeText={(val) => setName(val)} placeholder="Task name"
                     placeholderTextColor={Colors.tertiary}
                 />
                 <CustomButtom text="Submit" onPress={submitHandler} round />
@@ -53,4 +55,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default AddListScreen
+export default AddTaskScreen

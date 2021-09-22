@@ -27,5 +27,14 @@ export default {
         lineHeight: 28,
         marginBottom: 38,
         padding: 5,
+    },
+    swithContainer: {
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        marginBottom: 30
+    },
+    switchText: {
+        fontSize: 18,
     }
 }

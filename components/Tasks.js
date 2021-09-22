@@ -20,6 +20,10 @@ const Tasks = ({ navigation, listId }) => {
         }
     }, [tasks, listId])
 
+    const taskClickHandler = (item) => {
+        navigation.navigate('Task', { id: item.id });
+    };    
+
     return (
         <View style={styles.container}>
             {
@@ -27,9 +31,11 @@ const Tasks = ({ navigation, listId }) => {
                     data={data}
                     contentContainerStyle={globalStyles.listContainer}
                     keyExtractor={(item) => item.id}
-                    renderItem={({ item }) => <TouchableOpacity>
-                        <View>
-                            <Text>{item.name}</Text>
+                    renderItem={({ item }) => <TouchableOpacity
+                        style={!item.completed ? globalStyles.listItem : { ...globalStyles.listItem, ...styles.itemCompleted }}
+                        onPress={() => taskClickHandler(item)}>
+                        <View style={styles.textWrapper}>
+                            <Text style={styles.itemText}>{item.name}</Text>
                             {item.completed && <Icon name="checkmark-circle-outline" size={30} color={Colors.primary} />}
                         </View>
                     </TouchableOpacity>}
@@ -43,6 +49,19 @@ const Tasks = ({ navigation, listId }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+    },
+    itemCompleted: {
+        backgroundColor: Colors.tertiary,
+    },
+    textWrapper: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between'
+    },
+    itemText: {
+        fontSize: 14,
+        flex: 1,
+        paddingRight: 10
     }
 })
 

@@ -3,13 +3,14 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { View, StyleSheet, Alert, ToastAndroid } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
-
 import HomeScreen from '../screens/HomeScreen'
+import AddTaskScreen from '../screens/AddTaskScreen'
 import AddListScreen from '../screens/AddListScreen'
 import { Colors } from '../constants'
 import ListScreen from '../screens/ListScreen'
 import { useDispatch } from 'react-redux'
-import { deleteList } from '../stores/actions/listActions'
+import { deleteList } from '../store/actions/listActions'
+import TaskScreen from '../screens/TaskScreen'
 
 const TasksStackNavigator = createStackNavigator();
 
@@ -84,6 +85,22 @@ const TasksNavigator = () => {
                         </View>
                     )
                 })}
+            />
+            <TasksStackNavigator.Screen
+                name="NewTask"
+                component={AddTaskScreen}
+                options={{
+                    ...defaultStyles,
+                    title: 'Add new task'
+                }}
+            />
+            <TasksStackNavigator.Screen
+                name="Task"
+                component={TaskScreen}
+                options={{
+                    ...defaultStyles,
+                    title: 'Update task'
+                }}
             />
         </TasksStackNavigator.Navigator>
     )

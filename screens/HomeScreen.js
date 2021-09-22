@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import Lists from "../components/Lists";
 import CustomButtom from "../components/CustomButtom";
 import { Colors } from "../constants";
-import { getLists } from "../stores/actions/listActions";
+import { getLists } from "../store/actions/listActions";
 import globalStyles from '../styles/global'
 
 const HomeScreen = ({ navigation }) => {
